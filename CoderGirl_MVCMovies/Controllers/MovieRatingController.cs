@@ -9,7 +9,7 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieRatingController : Controller
     {
         private string htmlForm = @"
-            <form method = 'post' action='movieRating/Index'>
+            <form method = 'post' action='/movieRating/Create'>
                 <input name='movieName' />
                     <select name='rating'>
                         <option>1</option>
