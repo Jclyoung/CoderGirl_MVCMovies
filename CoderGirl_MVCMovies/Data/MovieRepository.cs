@@ -10,20 +10,39 @@ namespace CoderGirl_MVCMovies.Data
     {
         static List<Movie> movies = new List<Movie>();
         static int nextId = 1;
-
-        public void Delete(int id)
+        static IMovieRatingRepository ratingRepository= RepositoryFactory.GetMovieRatingRepository();
+        public void Delete(int Id)
         {
-            movies.RemoveAll(m => m.Id == id);
+            movies.RemoveAll(m => m.Id == Id);
         }
 
-        public Movie GetById(int id)
-        {
-            return movies.SingleOrDefault(m => m.Id == id);
+        public Movie GetById(int Id)
+        {   //TODO: Insert MovieRatings
+            Movie movie = movies.SingleOrDefault(m => m.Id == Id);
+            //List<int> ratings = ratingRepository.GetMovieRatings()
+            //    .Where(rating => rating.MovieId == id)
+            //    .Select(rating => rating.Rating)
+            //    .ToList();
+            //movie.Ratings = ratings;
+            movie = SetMovieRatings(movie);
+            return movie;
         }
+
 
         public List<Movie> GetMovies()
-        {
+        {   //TODO: FOREACH! movie insert MRs
+            movies.Select(movie => SetMovieRatings(movie)).ToList();
             return movies;
+        }
+
+        private object SetMovieRatings(Movie movie)
+        {
+            List<int> ratings = ratingRepository.GetMovieRatings()
+            .Where(rating => rating.MovieId == movie.Id)
+            .Select(rating => rating.Rating)
+            .ToList();
+                    movie.Ratings = ratings;
+            return movie;
         }
 
         public int Save(Movie movie)
