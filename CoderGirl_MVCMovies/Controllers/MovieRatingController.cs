@@ -37,7 +37,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return Content(htmlForm, "text/html");
+            return Content(htmlForm, "create");
         }
 
         // TODO: Save the movie/rating in the MovieRatingRepository before redirecting to the Details page
