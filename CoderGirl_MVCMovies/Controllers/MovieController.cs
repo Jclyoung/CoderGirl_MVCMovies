@@ -32,10 +32,18 @@ namespace CoderGirl_MVCMovies.Controllers
             if (String.IsNullOrWhiteSpace(movie.Name))
             {
                 ModelState.AddModelError("Name", "Name must be included");
-                ViewBag.Directors = directorRepository.GetDirector();
-                return View(ViewBag);
             }
-           
+            if(movie.Year < 1888 || movie.Year > DateTime.Now.Year)
+            {
+                ModelState.AddModelError("Year", "Year is not valid");
+            }
+
+            if(ModelState.ErrorCount > 0)
+            {
+                ViewBag.Directors = directorRepository.GetDirectors();
+                return View(movie);
+            }
+
             movieRepository.Save(movie);
             return RedirectToAction(actionName: nameof(Index));
         }
