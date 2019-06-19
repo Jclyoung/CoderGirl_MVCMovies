@@ -7,7 +7,9 @@ namespace CoderGirl_MVCMovies.Data
 {
     // TODO: Implement this interface
     public interface IMovieRatingRepository
-    {        
+    {
+
+        List<MovieRating> GetMovieRatings();
         /// <summary>
         /// Given a movieName and rating, saves the rating and returns a unique id > 0.
         /// If the movie name and/or rating are null or empty, nothing should be saved and it should return 0
@@ -15,15 +17,15 @@ namespace CoderGirl_MVCMovies.Data
         /// <param name="movieName"></param>
         /// <param name="rating"></param>
         /// <returns></returns>
-        int SaveRating(string movieName, string rating);
+        int SaveRating(string movieName, int rating);
 
         /// <summary>
         /// Given an id, will return the associated rating 
-        /// If the id does not exist, returns null
+        /// If the id does not exist, returns 0
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        string GetRatingById(int id);
+        int GetRatingById(int id);
 
         /// <summary>
         /// Given an id, will return the associated movie name.
@@ -39,7 +41,7 @@ namespace CoderGirl_MVCMovies.Data
         /// </summary>
         /// <param name="movieName"></param>
         /// <returns></returns>
-        List<string> GetAverageRatingByMovieName(string movieName);
+        decimal GetAverageRatingByMovieName(string movieName);
 
         /// <summary>
         /// Returns a list of all the ids of saved movie ratings

@@ -11,33 +11,26 @@ namespace CoderGirl_MVCMovies.Controllers
     {
         private IMovieRatingRepository repository = RepositoryFactory.GetMovieRatingRepository();
 
-        private string htmlForm = @"
-            <form method='post'>
-                <input name='movieName' />
-                <select name='rating'>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>                    
-                </select>
-                <button type='submit'>Rate it</button>
-            </form>";
+        public List<MovieRating> movieRatings = new List<MovieRating>();
 
         /// TODO: Create a view Index. This view should list a table of all saved movie names with associated average rating
         /// TODO: Be sure to include headers for Movie and Rating
         /// TODO: Each tr with a movie rating should have an id attribute equal to the id of the movie rating
         public IActionResult Index()
         {
+           
+            ViewBag.MovieRatings = repository.GetMovieRatings();
             return View();
         }
 
-        // TODO: Create a view MovieRating/Create and put the htmlForm there. Remember that html in a view should not be a string. 
+        // TODO: Create a view MovieRating/Create and put the htmlForm there. Remember that html in a view should not be a string.
+        // TODO: Change the input tag for movie name to be a drop down which has a list of movies from the movie repository
         // TODO: Change this method to return that view. 
         [HttpGet]
         public IActionResult Create()
         {
-            return Content(htmlForm, "text/html");
+            ViewBag.Movies = MovieController.movies;
+            return View();
         }
 
         // TODO: Save the movie/rating in the MovieRatingRepository before redirecting to the Details page
@@ -45,6 +38,8 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpPost]
         public IActionResult Create(string movieName, string rating)
         {
+            int r = int.Parse(rating);
+            int movieIdToUse = repository.SaveRating(movieName, r);
             return RedirectToAction(actionName: nameof(Details), routeValues: new { movieName, rating });
         }
 
@@ -54,7 +49,12 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Details(string movieName, string rating)
         {
-            return Content($"{movieName} has a rating of {rating}");
+            string content = $"{movieName} has a rating of {rating}";
+            return View("Details", (object)content);
+           
         }
+
+
+
     }
 }
