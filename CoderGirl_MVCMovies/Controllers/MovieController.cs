@@ -10,6 +10,7 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieController : Controller
     {
+        public static Dictionary<int, string> movies = new Dictionary<int, string>();
         // GET: /<controller>/
         public IActionResult Index()
         {
