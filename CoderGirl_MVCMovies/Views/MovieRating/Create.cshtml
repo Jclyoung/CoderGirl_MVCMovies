@@ -1,4 +1,4 @@
-﻿
+﻿@model List<CoderGirl_MVCMovies.Models.MovieRating>
 @{
     ViewData["Title"] = "Rate Movie";
 }
@@ -6,9 +6,9 @@
 <h1>Rate a Movie</h1>
 <form method='post'>
     <select name="movieName">
-        @foreach (var movie in ViewBag.Movies)
+        @foreach (var name in ViewBag.MovieNames)
         {
-            <option>@movie.Value</option>
+            <option>@name</option>
         }
     </select>
     <select name="rating">
@@ -18,7 +18,7 @@
         <option>4</option>
         <option>5</option>
     </select>
-    <button type='submit'>Rate it</button>
+    <button type='submit'>Rate Movie</button>
 </form>
 
 
