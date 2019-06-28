@@ -50,11 +50,7 @@ namespace CoderGirl_MVCMovies.Controllers
         public IActionResult Details(string movieName, string rating)
         {
             string content = $"{movieName} has a rating of {rating}";
-            return View("Details", (object)content);
-           
+            return View("Details", (object)content);           
         }
-
-
-
     }
 }

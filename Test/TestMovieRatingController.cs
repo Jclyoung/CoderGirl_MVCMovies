@@ -19,11 +19,11 @@ namespace Test
 
         [Fact]
         public void Test_GET_Create_ReturnsViewResult_ForCreate()
-        {           
+        {
             IActionResult result = controller.Create();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("Create", viewResult.ViewName);
+            Assert.Null(viewResult.ViewName);
         }
 
         [Theory]

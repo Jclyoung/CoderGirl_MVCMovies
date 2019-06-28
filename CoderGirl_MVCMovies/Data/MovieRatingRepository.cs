@@ -13,16 +13,14 @@ namespace CoderGirl_MVCMovies.Data
 
         public MovieRating(int movieRatingId, int rating, string movieName)
         {
-            this.MovieRatingId = movieRatingId;
-            this.Rating = rating;
-            this.MovieName = movieName;
+            MovieRatingId = movieRatingId;
+            Rating = rating;
+            MovieName = movieName;
         }
     }
 
     public class MovieRatingRepository : IMovieRatingRepository
     {
-
-
         public List<MovieRating> movieRatings = new List<MovieRating>();
         public int movieRating_nextIdToUse = 1;
 
@@ -30,7 +28,6 @@ namespace CoderGirl_MVCMovies.Data
         {
             return movieRatings;
         }
-
 
         public int SaveRating(string movieName, int rating)
         {

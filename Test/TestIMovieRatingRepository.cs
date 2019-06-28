@@ -20,9 +20,9 @@ namespace Test
         public void TestSave_ReturnsDistinctIds_GreaterThanZero()
         {
             List<int> ids = new List<int>();
-            ids.Add(repository.SaveRating("movie1", "rating1"));
-            ids.Add(repository.SaveRating("movie2", "rating2"));
-            ids.Add(repository.SaveRating("movie3", "rating3"));
+            ids.Add(repository.SaveRating("movie1", 1));
+            ids.Add(repository.SaveRating("movie2", 2));
+            ids.Add(repository.SaveRating("movie3", 3));
 
             var distinctResults = ids.Distinct();
             Assert.Equal(3, distinctResults.Count());
@@ -30,13 +30,40 @@ namespace Test
         }
 
         [Theory]
+        [InlineData("movie3")]
+        [InlineData("movie4")]
         public void TestGetMovieNameById_ReturnsMovieName_WhenGivenId(string movieName)
         {
-
+            int id = repository.SaveRating(movieName, 1);
 
             var result = repository.GetMovieNameById(id);
 
             Assert.Equal(movieName, result);
+        }
+
+        [Theory]
+        [InlineData(4)]
+        [InlineData(5)]
+        public void TestGetRatingById(int rating)
+        {
+            int id = repository.SaveRating("movie9", rating);
+
+            var result = repository.GetRatingById(id);
+
+            Assert.Equal(rating, result);
+        }
+
+        [Theory]
+        [InlineData("movie11", new int[] { 1, 3, 5 })]
+        [InlineData("movie12", new int[] { 3, 2, 5 })]
+        public void TestGetAverageRatingByMovieName(string movieName, int[] ratings)
+        {
+            Array.ForEach(ratings, rating => repository.SaveRating(movieName, rating));
+            var expected = (decimal)ratings.Average();
+
+            var result = repository.GetAverageRatingByMovieName(movieName);
+
+            Assert.Equal(expected, result);
         }
     }
 }
