@@ -4,16 +4,18 @@
 }
 
 <h1>Movie Ratings</h1>
+
+
 <table>
     <tr>
         <th>Movie</th>
         <th>Rating</th>
     </tr>
-    @foreach (var movie in ViewBag.Movie)
+    @foreach (var movie in ViewBag.Movies)
     {
         <tr>
-            <td id="movieRating.ID">@movie.Movie</td>
-            <td id="movieRating.ID">@movie.Rating</td>
+            <td id="movie.ID">@movie.Movie</td>
+            <td id="movie.ID">@movie.Rating</td>
         </tr>   
     }
 </table>

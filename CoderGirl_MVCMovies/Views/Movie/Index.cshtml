@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Movies";
+}
+
+@*  tr = table rows
+    th = table header
+    td = table columns
+    KeyValuePair = name of a single item in the dictionary must include the key and item
+    Value = what the key goes to in a dictionary
+
+
+*@
+<h1>Movies</h1>
+<table>
+    <tr>
+        <th>Movie Name</th>
+    </tr>
+    @{ foreach (var movie in ViewBag.Movies)
+        {
+            <tr>
+                <td>@movie.MovieName</td>
+            </tr>
+        }
+    }
+</table>
+

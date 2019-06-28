@@ -1,32 +1,53 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CoderGirl_MVCMovies.Data
 {
     internal class MovieRatingRepository : IMovieRatingRepository
     {
-        public List<string> GetAverageRatingByMovieName(string movieName)
+        public static List<MovieRating> ratings = new List<MovieRating>();
+        private static int nextRatingId = 1;
+
+        public List<MovieRating> GetMovieRatings()
         {
-            throw new System.NotImplementedException();
+            return ratings;
+        }
+
+        public double GetAverageRatingByMovieName(string movieName)
+        {
+            double averageRating = ratings.Where(mn => mn.MovieName == movieName).Average(r => r.Rating);
+            return averageRating;
         }
 
         public List<int> GetIds()
         {
-            throw new System.NotImplementedException();
+            List<int> ratingIds = ratings.Select(id => id.RatingId).ToList();
+            return ratingIds;
         }
 
         public string GetMovieNameById(int id)
         {
-            throw new System.NotImplementedException();
+            string movieName = ratings.Where(mn => mn.RatingId == id).Select(mn => mn.MovieName).SingleOrDefault();
+            return movieName;
         }
 
-        public string GetRatingById(int id)
+        public double GetRatingById(int id)
         {
-            throw new System.NotImplementedException();
+            double movieRating = ratings.Where(mr => mr.RatingId == id).Select(mr => mr.Rating).SingleOrDefault();
+            return movieRating;
         }
 
-        public int SaveRating(string movieName, string rating)
+        public int SaveRating(string movieName, double rating)
         {
-            throw new System.NotImplementedException();
+            MovieRating movieRating = new MovieRating
+            {
+                RatingId = nextRatingId,
+                MovieName = movieName,
+                Rating = rating,
+            };
+            nextRatingId++;
+            ratings.Add(movieRating);
+            return movieRating.RatingId;
         }
     }
 }

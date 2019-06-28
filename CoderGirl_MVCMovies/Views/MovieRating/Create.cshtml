@@ -3,14 +3,14 @@
     ViewData["Title"] = "Rate Movie";
 }
 
-<h1>Rate a Movie</h1>
+<h1>Rate Movie</h1>
 
 
 <form method='post'>
     <select name="movieName">
         @foreach (var movie in ViewBag.Movies)
         {
-            <option>@movie.Value</option>
+            <option>@movie.MovieName</option>
         }
     </select>
     <select name="rating">

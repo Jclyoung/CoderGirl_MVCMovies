@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoderGirl_MVCMovies.Data
 {
-    // TODO: Implement this interface
+    // Implement this interface
     public interface IMovieRatingRepository
     {        
         /// <summary>
@@ -15,7 +15,7 @@ namespace CoderGirl_MVCMovies.Data
         /// <param name="movieName"></param>
         /// <param name="rating"></param>
         /// <returns></returns>
-        int SaveRating(string movieName, string rating);
+        int SaveRating(string movieName, double rating);
 
         /// <summary>
         /// Given an id, will return the associated rating 
@@ -23,7 +23,7 @@ namespace CoderGirl_MVCMovies.Data
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        string GetRatingById(int id);
+        double GetRatingById(int id);
 
         /// <summary>
         /// Given an id, will return the associated movie name.
@@ -39,7 +39,7 @@ namespace CoderGirl_MVCMovies.Data
         /// </summary>
         /// <param name="movieName"></param>
         /// <returns></returns>
-        List<string> GetAverageRatingByMovieName(string movieName);
+        double GetAverageRatingByMovieName(string movieName);
 
         /// <summary>
         /// Returns a list of all the ids of saved movie ratings

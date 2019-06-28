@@ -1,7 +1,9 @@
 ﻿
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Movie Rating Details";
 }
 
-<h1>"@ViewBag.Movie has a rating of @ViewBag.Rating"</h1>
+<a asp-controller="MovieRating" asp-action="Index">Movies</a>
+
+<h2>"@ViewBag.MovieName has a rating of @Convert.ToString(ViewBag.Rating)"</h2>
