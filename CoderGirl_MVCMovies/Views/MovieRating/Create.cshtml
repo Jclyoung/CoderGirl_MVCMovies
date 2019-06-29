@@ -5,7 +5,7 @@
 <h1>Rate a Movie</h1>
 <form method='post'>
     <label for='movieName'>Movie Name</label>
-    <select name="movieName" id='movieName'>
+    <select name="movieName" id='movie'>
         @foreach (var movie in ViewBag.Movies)
         {
             <option>@movie.Value</option>
