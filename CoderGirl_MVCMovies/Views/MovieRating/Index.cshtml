@@ -7,7 +7,7 @@
 
 <h1>Movie Ratings</h1>
 
-<a asp-controller="MovieRating" id="movierating" asp-action="Create">Rate a Movie</a>
+<a asp-controller="MovieRating" id="add-movierating" asp-action="Create">Rate a Movie</a>
 <table>
     <tr>
         <th>Movie</th>
@@ -17,7 +17,7 @@
     {
     <tr>
 
-        <td>@movieRating.MovieName</td>
+        <td>@movieRating.Movie</td>
         <td>@movieRating.Rating</td>
         <td><a asp-action="Edit" asp-route-id="@movieRating.Id">Edit</a></td>
         <td><a asp-action="Delete" asp-route-id="@movieRating.Id">Delete</a></td>
