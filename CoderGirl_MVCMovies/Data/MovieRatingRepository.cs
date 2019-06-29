@@ -11,12 +11,12 @@ namespace CoderGirl_MVCMovies.Data
         public int Rating { get; set; }
         public string MovieName { get; set; }
 
-        public MovieRating(int movieRatingId, int rating, string movieName)
+ public MovieRating(int movieRatingId, int rating, string movieName)
         {
             MovieRatingId = movieRatingId;
             Rating = rating;
             MovieName = movieName;
-        }
+        }       
     }
 
     public class MovieRatingRepository : IMovieRatingRepository
