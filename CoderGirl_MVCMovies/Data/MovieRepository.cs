@@ -10,7 +10,9 @@ namespace CoderGirl_MVCMovies.Data
     {
         static List<Movie> movies = new List<Movie>();
         static int nextId = 1;
-        static IMovieRatingRepository ratingRepository= RepositoryFactory.GetMovieRatingRepository();
+        static IMovieRatingRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
+        static IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+
         public void Delete(int Id)
         {
             movies.RemoveAll(m => m.Id == Id);
@@ -19,13 +21,15 @@ namespace CoderGirl_MVCMovies.Data
         public Movie GetById(int Id)
         {   //TODO: Insert MovieRatings
             Movie movie = movies.SingleOrDefault(m => m.Id == Id);
+            movie = SetMovieRatings(movie);
+            movie = SetDirectorName(movie);
+            return movie;
             //List<int> ratings = ratingRepository.GetMovieRatings()
             //    .Where(rating => rating.MovieId == id)
             //    .Select(rating => rating.Rating)
             //    .ToList();
             //movie.Ratings = ratings;
-            movie = SetMovieRatings(movie);
-            return movie;
+            //movie = SetMovieRatings(movie);
         }
 
 
@@ -35,13 +39,13 @@ namespace CoderGirl_MVCMovies.Data
             return movies;
         }
 
-        private object SetMovieRatings(Movie movie)
+        private Movie SetMovieRatings(Movie movie)
         {
             List<int> ratings = ratingRepository.GetMovieRatings()
             .Where(rating => rating.MovieId == movie.Id)
             .Select(rating => rating.Rating)
             .ToList();
-                    movie.Ratings = ratings;
+            movie.Ratings = ratings;
             return movie;
         }
 
@@ -61,6 +65,12 @@ namespace CoderGirl_MVCMovies.Data
             //once we start using the database this pattern will be simplified
             this.Delete(movie.Id);
             movies.Add(movie);
+        }
+        private Movie SetDirectorName(Movie movie)
+        {
+            Director director = directorRepository.GetById(movie.DirectorId);
+            movie.DirectorName = director.LastFirst;
+            return movie;
         }
     }
 }

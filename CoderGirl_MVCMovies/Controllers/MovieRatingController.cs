@@ -11,7 +11,7 @@ namespace CoderGirl_MVCMovies.Controllers
     public class MovieRatingController : Controller
     {
         private IMovieRatingRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
-        private IMovieRespository movieRespository = RepositoryFactory.GetMovieRepository();
+        private IMovieRespository movieRepository = RepositoryFactory.GetMovieRepository();
 
        public IActionResult Index()
         {
@@ -20,18 +20,33 @@ namespace CoderGirl_MVCMovies.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int movieId)
         {
-            ViewBag.MovieNames = movieRespository.GetMovies().Select(m => m.Name).ToList();
-            return View();
+            string movieName = movieRepository.GetById(movieId).Name;
+            MovieRating movieRating = new MovieRating();
+            movieRating.MovieId = movieId;
+            movieRating.MovieName = movieName;
+            return View(movieRating);
         }
 
-        [HttpPost]
-        public IActionResult Create(MovieRating movieRating)
+         [HttpPost]
+        public IActionResult Create(int movieId, MovieRating movieRating)
         {
+            var movie = movieRepository.GetMovies().FirstOrDefault(x => x.Name == movieRating.MovieName);
+            if (movie.Id != movieRating.MovieId)
+            {
+                movieRating.MovieId = movie.Id;
+            }
             ratingRepository.Save(movieRating);
-            return RedirectToAction(actionName: nameof(Index));
+            return RedirectToAction("Index","Movie");
         }
+
+        //[HttpPost]
+        //public IActionResult Create(int movieId, MovieRating movieRating)
+        //{
+        //    ratingRepository.Save(movieRating);
+        //    return RedirectToAction(controllerName: nameof(Movie), actionName: nameof(Index));
+        //}
 
         [HttpGet]
         public IActionResult Edit(int id)

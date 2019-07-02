@@ -1,4 +1,5 @@
-﻿@model CoderGirl_MVCMovies.Models.Movie
+﻿
+@model CoderGirl_MVCMovies.Models.Movie
 
 @{
     ViewData["Title"] = "Create";
@@ -18,9 +19,12 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Director" class="control-label"></label>
-                <input asp-for="Director" class="form-control" />
-                <span asp-validation-for="Director" class="text-danger"></span>
+                <select asp-for="DirectorId">
+                    @foreach (var director in ViewBag.Directors)
+                    {
+                        <option value="@director.Id">@director.LastFirst</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Year" class="control-label"></label>
@@ -29,7 +33,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Add Movie</button>
-</div>
+            </div>
         </form>
     </div>
 </div>

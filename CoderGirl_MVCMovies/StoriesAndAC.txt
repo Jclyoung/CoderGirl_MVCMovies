@@ -39,21 +39,37 @@ I want to delete a MovieRating
 I want to see average rating and number of ratings on the /Movie/List page
 - Given I am on the /Movie/Index page, I should see a link "Add New Movie" (id="add-new-movie") 
 - Clicking on "Add New Movie" should take me to /Movie/Create
-- Given I am on the /Movie/List page, I should see a table with Columns in this order: "Name", "Director", "Year", "Average Rating", "Number of Ratings" (Edit and Delete links should follow on each row)
-- The column values for Director should be formatted as "LastName, FirstName" 
-- Each row (<tr id="{movie id} >) should display the correct information for each movie added. If a movie has not been rated, Average Rating should be 'none'. 
-
+- Given I am on the /Movie/List page, I should see a table with Columns in this order: "Name", "Director", 
+"Year", "Average Rating", "Number of Ratings" (Edit and Delete links should follow on each row)
+- Each row (<tr id="{movie id} >) should display the correct information for each movie added. If a movie has not been rated,
+Average Rating should be 'none'. 
 I want to create a rating for a particular movie
 - Given I am on the /Movie/Index page, I should see a link "Rate" next to each Movie. 
-- Given I am on the /Movie/Index page and I click a "Rate" link, I am taken to /MovieRating/Create/{movieId} (where id is the id for the specific Movie)
-- Given I am on /MovieRating/Create/{movieId}, the page should be populated with readonly input for the movie name. I should be able to select a rating.
+- Given I am on the /Movie/Index page and I click a "Rate" link, I am taken to /MovieRating/Create/{movieId} 
+(where id is the id for the specific Movie)
+- Given I am on /MovieRating/Create/{movieId}, the page should be populated with readonly input for the movie name. 
+I should be able to select a rating.
 - When clicking submit on /MovieRating/Create/{id}, I want to redirect to /Movie/Index
-
 I want to create a Director (use model with properties: FirstName, LastName, BirthDate, Nationality)
-- Given I am on /Director/Index, I should see a link "Add a Director" (id="add-new-director"). Clicking on this link takes you to /Director/Create
-- Given I am on page /Director/Create, I should be able to input values for "First Name", "Last Name", "Birth Date" and "Nationality". 
-- Given I am on /Director/Create, there should be a button "Add Director". When I click "Add Director" I should be redirected to /Director/Index
+- Given I am on /Director/Create, there should be a button "Add Director". When I click "Add Director" 
+I should be redirected to /Director/Index
+
+
+
+
+- The column values for Director should be formatted as "LastName, FirstName" 
+- Given I am on /Director/Index, I should see a link "Add a Director" (id="add-new-director"). 
+Clicking on this link takes you to /Director/Create
 - stretch goal: If no last name is entered, return Create view with validation error message.
+
+
+
+
+
+
+
+- Given I am on page /Director/Create, I should be able to input values for "First Name", "Last Name", "Birth Date" 
+and "Nationality". 
 
 I want to view a list of Directors
 - Given I am on /Director/Index, I should see a table with columns "Name", "Birth Date", "Nationality"
