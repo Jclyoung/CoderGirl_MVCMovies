@@ -34,9 +34,9 @@ namespace CoderGirl_MVCMovies.Data
 
 
         public List<Movie> GetMovies()
-        {   //TODO: FOREACH! movie insert MRs
-            movies.Select(movie => SetMovieRatings(movie)).ToList();
-            return movies;
+        {
+            return movies.Select(movie => SetMovieRatings(movie))
+                         .Select(movie => SetDirectorName(movie)).ToList();
         }
 
         private Movie SetMovieRatings(Movie movie)
