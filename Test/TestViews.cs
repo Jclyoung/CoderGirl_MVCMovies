@@ -85,7 +85,7 @@ namespace Test
             movieSubmit.Click();
 
             //verify it redirects to Index
-            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/movie"), driver.Url, true);           
+            Assert.Equal(Uri.EscapeUriString(BASE_URL + $"/movie"), driver.Url, true);
         }
 
         [Theory, TestPriority(2)]

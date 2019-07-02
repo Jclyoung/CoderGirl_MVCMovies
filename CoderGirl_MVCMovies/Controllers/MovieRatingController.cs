@@ -10,19 +10,20 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class MovieRatingController : Controller
     {
-        private IMovieRatingRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
-        private IMovieRespository movieRespository = RepositoryFactory.GetMovieRepository();
+        static IRepository ratingRepository = RepositoryFactory.GetMovieRatingRepository();
+        static IRepository movieRepository = RepositoryFactory.GetMovieRepository();
 
-       public IActionResult Index()
+        public IActionResult Index()
         {
-            List<MovieRating> movieRatings = ratingRepository.GetMovieRatings();
+            List<MovieRating> movieRatings = ratingRepository.GetModels().Cast<MovieRating>().ToList();
             return View(movieRatings);
         }
 
         [HttpGet]
         public IActionResult Create(int movieId)
         {
-            string movieName = movieRespository.GetById(movieId).Name;
+            var movie = (Movie)movieRepository.GetById(movieId);
+            string movieName = movie.Name;
             MovieRating movieRating = new MovieRating();
             movieRating.MovieId = movieId;
             movieRating.MovieName = movieName;
@@ -30,7 +31,7 @@ namespace CoderGirl_MVCMovies.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int movieId, MovieRating movieRating)
+        public IActionResult Create(int id, MovieRating movieRating)
         {
             ratingRepository.Save(movieRating);
             return RedirectToAction(controllerName: nameof(Movie), actionName: nameof(Index));
@@ -39,7 +40,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            MovieRating movieRating = ratingRepository.GetById(id);
+            MovieRating movieRating = (MovieRating)ratingRepository.GetById(id);
             return View(movieRating);
         }
 
@@ -54,7 +55,7 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            ratingRepository.Delete(id);
+            movieRepository.Delete(id);
             return RedirectToAction(actionName: nameof(Index));
         }
     }

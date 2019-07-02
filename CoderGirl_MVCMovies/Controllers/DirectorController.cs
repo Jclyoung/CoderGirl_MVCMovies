@@ -10,12 +10,12 @@ namespace CoderGirl_MVCMovies.Controllers
 {
     public class DirectorController : Controller
     {
-        private IDirectorRepository directorRepository = RepositoryFactory.GetDirectorRepository();
+        private IRepository directorRepository = RepositoryFactory.GetDirectorRepository();
 
         [HttpGet]
         public IActionResult Index()
         {
-            List<Director> directors = directorRepository.GetDirectors();
+            List<Director> directors = directorRepository.GetModels().Cast<Director>().ToList();
             return View(directors);
         }
 
@@ -28,7 +28,16 @@ namespace CoderGirl_MVCMovies.Controllers
         [HttpPost]
         public IActionResult Create(Director director)
         {
+            if (string.IsNullOrEmpty(director.Nationality))
+            {
+                director.Nationality = "unknown";
+            }
+            if (ModelState.ErrorCount > 0)
+            {
+                return View();
+            }
             directorRepository.Save(director);
+
             return RedirectToAction(actionName: nameof(Index));
         }
     }
